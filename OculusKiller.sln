@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OculusKiller", "OculusKiller\OculusKiller.csproj", "{D991AD78-285B-44C1-BDAF-B3B51C5D2B26}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D991AD78-285B-44C1-BDAF-B3B51C5D2B26}.Debug|x64.ActiveCfg = Debug|x64
+		{D991AD78-285B-44C1-BDAF-B3B51C5D2B26}.Debug|x64.Build.0 = Debug|x64
+		{D991AD78-285B-44C1-BDAF-B3B51C5D2B26}.Release|x64.ActiveCfg = Release|x64
+		{D991AD78-285B-44C1-BDAF-B3B51C5D2B26}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {360A00C9-EE64-480F-97E8-FCA76EEE7566}
+	EndGlobalSection
+EndGlobal
