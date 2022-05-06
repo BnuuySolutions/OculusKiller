@@ -7,10 +7,10 @@ Not only does this boost performance by considerable amounts by killing Oculus D
 
 There MIGHT be some bugs, if you experience anything you think is a bug, please create a new issue inside this repo.
 
-NOTE: This breaks Oculus based games, as in you might be able to launch Oculus games, but due to the Oculus Dash being quite literally killed you will be forever stuck in that game. It is recommended to use Revive if you need to play the Oculus version of a game, period.
+## Disclaimer
+This breaks Oculus based games, as in you might be able to launch Oculus games, but due to the Oculus Dash being quite literally killed you will be forever stuck in that game. It is recommended to use Revive if you need to play the Oculus version of a game, period.
 
-Guide:
-
+## Installation
 - Open Task Manager, go to Services and look for OVRService, right click on it and stop it. (If you have the Oculus app or any VR games open, they WILL close when stopping OVRService.)
 - Go to C:\Program Files\Oculus\Support\oculus-dash\dash\bin in Explorer.
 - Rename the original OculusDash.exe to OculusDash.exe.bak and move my replacement OculusDash.exe into the folder you just opened in Explorer.
