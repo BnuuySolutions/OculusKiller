@@ -1,4 +1,9 @@
 # Oculus Killer
+
+[![Discord Shield](https://discordapp.com/api/guilds/972139796354973806/widget.png?style=shield)](https://discord.gg/dPsfJhsGwb)
+
+---
+
 Completely kill the Oculus Dash and auto-launch SteamVR, with my newest discovery.
 
 Yep, it's finally a reality. You can now make your Oculus headset into an almost-native SteamVR headset, this simple replacement for Oculus Dash will make it so that as soon as you put your headset on (or launch Link), SteamVR will launch!
