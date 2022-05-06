@@ -17,3 +17,19 @@ Guide:
 - Go back to Task Manager, look for OVRService again, right click on it and start it.
 
 Enjoy your completely yeeted Oculus Dash with SteamVR auto-start, and the extra performance!
+
+---
+# Common fixes
+Here is a list of common issues and their respective fixes/workarounds!
+
+## OpenXR Games launch, but cannot be seen (Phasmophobia, etc.)
+This is a very common issue, and has to do with OpenXR prefering the use of Oculus over SteamVR. The fix is very simple:
+
+- Open SteamVR settings (with headset connected)
+- Press "Show" under "Advanced Settings"
+- Open the "Developer" tab
+- Click "Set SteamVR as OpenXR runtine"
+
+<img src="https://service.viveport.com/hc/article_attachments/4423262818317/___2022-01-28___3.09.45.png" width="426" height="328" />
+
+Image Source: [Viveport](https://service.viveport.com/hc/en-us/articles/4423262844813-How-to-setup-correct-OpenXR-runtime)
