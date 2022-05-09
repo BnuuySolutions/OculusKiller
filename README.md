@@ -25,8 +25,8 @@ Enjoy your completely yeeted Oculus Dash with SteamVR auto-start, and the extra 
 # Common fixes
 Here is a list of common issues and their respective fixes/workarounds!
 
-## Headset Stuck on a Black Screen
-This issue occurs when you do not have "File name extensions" enabled when renaming OculusDash.exe. To fix this:
+## Headset Infinitely Loads
+This issue can occur when you do not have "File name extensions" enabled when renaming OculusDash.exe. To fix this:
 
 - Open "File Explorer"
 - Click the "View" tab (at the top)
