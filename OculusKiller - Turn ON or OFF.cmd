@@ -3,7 +3,7 @@
 :: Place this script in the SAME FOLDER with the modified OculusDash.exe file, and run script.
 :: Any dir will work, I put mine in a folder in My Documents. This script will create a backup of OculusDash.exe.
 :: ALWAYS run this script "AS ADMINISTRATOR", or you will get "Access Denied" error.
-:: You should not need to modify anything, if you installed Oculus Home to a different folder, then update OCULUSDIR.
+:: You should not need to modify anything, if you installed Oculus Home to a different folder, then update CUSTOMOCULUSBASE.
 
 @echo off
 :: Modify this "CUSTOMOCULUSBASE" if you installed to a different folder, and have not set OCULUSBASE.
