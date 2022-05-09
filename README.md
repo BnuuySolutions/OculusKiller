@@ -48,4 +48,4 @@ DISCLAIMER: This workaround may prevent some SteamVR games from launching, make 
 - Turn on "Autostart"
 - Turn on "Force Use SteamVR (Disable Oculus API [expiremental])"
 
-<img src="https://github.com/UnusualNorm/OculusKiller/blob/main/OVRSettingsFix.png" width="600" height="400" />
+<img src="OVRSettingsFix.png" width="600" height="400" />
