@@ -32,7 +32,7 @@ namespace OculusKiller
                         // Let the user know if we haven't found SteamVR
                         if (programId == programs[programs.Length - 1]) MessageBox.Show("SteamVR not found! (Is it installed?)");
                         continue;
-                    };
+                    }
 
                     // Get the InstallLocation, and combine it to get the binary
                     string programPath = subkey.GetValue("InstallLocation").ToString();
