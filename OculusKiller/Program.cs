@@ -8,25 +8,30 @@ namespace OculusKiller
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             try
             {
-                var steamPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", null).ToString();
-                if (!string.IsNullOrEmpty(steamPath))
-                {
-                    steamPath = Path.GetFullPath(steamPath);
+                RegistryKey steamVRKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 250820");
 
-                    // Going to assume SteamVR is in the default steamapps path, this could be bad.
-                    var binaryPath = Path.Combine(steamPath, @"steamapps\common\SteamVR\bin\win64");
-                    var vrStartupPath = Path.Combine(binaryPath, "vrstartup.exe");
-                    if (Directory.Exists(binaryPath) && File.Exists(vrStartupPath))
+                if (steamVRKey != null)
+                {
+                    string programPath = steamVRKey.GetValue("InstallLocation").ToString();
+                    string vrStartupPath = Path.Combine(programPath, @"bin\win64\vrstartup.exe");
+
+                    if (File.Exists(vrStartupPath))
                     {
-                        var vrStartupProcess = Process.Start(vrStartupPath);
+                        Process vrStartupProcess = Process.Start(vrStartupPath);
                         vrStartupProcess.WaitForExit();
                     }
                     else
-                        MessageBox.Show("Couldn't find SteamVR! (Did you install it and run it once?)");
+                    {
+                        MessageBox.Show("Unable to find vrstartup executable within SteamVR installation directory.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Couldn't find SteamVR! (Did you install it and run it once?)");
                 }
             }
             catch (Exception ex)
