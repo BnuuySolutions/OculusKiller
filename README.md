@@ -25,7 +25,7 @@ Enjoy your completely yeeted Oculus Dash with SteamVR auto-start, and the extra 
 # Common fixes
 Here is a list of common issues and their respective fixes/workarounds!
 
-## Headset Infinitely Loads
+## Headset Infinitely Loads (SteamVR doesn't launch)
 This issue can occur when you do not have "File name extensions" enabled when renaming OculusDash.exe. To fix this:
 
 - Open "File Explorer"
