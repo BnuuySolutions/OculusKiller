@@ -12,30 +12,25 @@ namespace OculusKiller
         {
             try
             {
-                // Get all (uninstallable) programs
+                // Get all (uninstallable) programs from the registry
                 string programsKeyPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
                 RegistryKey programsKey = Registry.LocalMachine.OpenSubKey(programsKeyPath);
                 string[] programs = programsKey.GetSubKeyNames();
 
-                // Loop through each program entry
+                // Loop through each program subkey
                 foreach (string programId in programs)
                 {
-                    // Get the program's name
-                    RegistryKey subkey = programsKey.OpenSubKey(programId);
-                    object programNameObj = subkey.GetValue("DisplayName");
-                    if (programNameObj == null) continue; // Some programs don't exist?
-
-                    // Check DisplayName (for insurance) and ProgramID (subkey name)
-                    string programName = programNameObj.ToString();
-                    if (programName != "SteamVR" || programId != "Steam App 250820") // ProgramID should be according to https://steamdb.info/app/250820/
+                    // Make sure we are launching SteamVR
+                    if (programId != "Steam App 250820") // ProgramID should be according to https://steamdb.info/app/250820/
                     {
                         // Let the user know if we haven't found SteamVR
                         if (programId == programs[programs.Length - 1]) MessageBox.Show("SteamVR not found! (Is it installed?)");
                         continue;
                     }
 
-                    // Get the InstallLocation, and combine it to get the binary
-                    string programPath = subkey.GetValue("InstallLocation").ToString();
+                    // Get "InstallLocation", and combine it to get the binary location
+                    RegistryKey programKey = programsKey.OpenSubKey(programId);
+                    string programPath = programKey.GetValue("InstallLocation").ToString();
                     string binaryPath = Path.Combine(programPath, @"bin\win64"); // We have this for existence checking
                     string vrStartupPath = Path.Combine(binaryPath, "vrstartup.exe");
 
@@ -43,11 +38,12 @@ namespace OculusKiller
                     if (Directory.Exists(binaryPath) && File.Exists(vrStartupPath))
                     {
                         // Start SteamVR
-                        var vrStartupProcess = Process.Start(vrStartupPath);
+                        Process vrStartupProcess = Process.Start(vrStartupPath);
                         vrStartupProcess.WaitForExit();
                     }
                     else
                     {
+                        // The program appears as installed, but points to the wrong directory...
                         MessageBox.Show("SteamVR location existence mismatch! (Is SteamVR done installing?)");
                     }
 
