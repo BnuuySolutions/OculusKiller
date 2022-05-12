@@ -25,6 +25,18 @@ Enjoy your completely yeeted Oculus Dash with SteamVR auto-start, and the extra 
 # Common fixes
 Here is a list of common issues and their respective fixes/workarounds!
 
+## Headset Infinitely Loads (SteamVR doesn't launch)
+This issue can occur when you do not have "File name extensions" enabled when renaming OculusDash.exe. To fix this:
+
+- Open "File Explorer"
+- Click the "View" tab (at the top)
+- Enable "File name extensions"
+- Follow the installation instructions
+
+You can verify that you installed it succesfully if "OculusDash.exe.bak" is the "BAK File" type. And looks like the below screenshot.
+
+<img src="BlackScreenFix.png" width="627" height="444" />
+
 ## OpenXR Games launch, but cannot be seen
 This is a very common issue, and has to do with OpenXR prefering the use of Oculus over SteamVR. The fix is very simple:
 
