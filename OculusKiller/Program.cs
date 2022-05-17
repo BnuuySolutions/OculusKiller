@@ -1,10 +1,8 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using Gameloop.Vdf;
-using Gameloop.Vdf.Linq;
+using System.Web.Script.Serialization;
 
 namespace OculusKiller
 {
@@ -14,39 +12,24 @@ namespace OculusKiller
         {
             try
             {
-                RegistryKey steamKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam");
-                if (steamKey == null)
+                string openVrPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"openvr\openvrpaths.vrpath");
+                if (File.Exists(openVrPath))
                 {
-                    MessageBox.Show("Steam is not installed!");
-                    return;
-                }
+                    var jss = new JavaScriptSerializer();
+                    string jsonString = File.ReadAllText(openVrPath);
+                    dynamic steamVrPath = jss.DeserializeObject(jsonString);
 
-                string steamLocation = steamKey.GetValue("SteamPath").ToString();
-                string libraryConfigLocation = Path.Combine(steamLocation, @"steamapps\libraryfolders.vdf");
-                if (!File.Exists(libraryConfigLocation))
-                {
-                    MessageBox.Show("Steam library config does not exist!");
-                }
-
-                VProperty libraryConfig = VdfConvert.Deserialize(File.ReadAllText(libraryConfigLocation));
-                foreach (VProperty child in libraryConfig.Value.Children())
-                {
-                    if (child.Value["apps"]["250820"] != null)
+                    string vrStartupPath = Path.Combine(steamVrPath["runtime"][0].ToString(), @"bin\win64\vrstartup.exe");
+                    if (File.Exists(vrStartupPath))
                     {
-                        string steamVrLibPath = child.Value["path"].ToString();
-                        string vrStartupPath = Path.Combine(steamVrLibPath, @"steamapps\common\SteamVR\bin\win64\vrstartup.exe");
-
-                        if (File.Exists(vrStartupPath))
-                        {
-                            Process vrStartupProcess = Process.Start(vrStartupPath);
-                            vrStartupProcess.WaitForExit();
-                        }
-                        else
-                            MessageBox.Show("SteamVR does not exist in installation directory.");
-                        return;
+                        Process vrStartupProcess = Process.Start(vrStartupPath);
+                        vrStartupProcess.WaitForExit();
                     }
+                    else
+                        MessageBox.Show("SteamVR does not exist in installation directory.");
                 }
-                MessageBox.Show("SteamVR installation not found in library.");
+                else
+                    MessageBox.Show("Could not find openvr config file within LocalAppdata.");
             }
             catch (Exception e)
             {
