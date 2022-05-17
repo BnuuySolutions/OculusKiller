@@ -8,15 +8,18 @@ namespace OculusKiller
 {
     public class Program
     {
+        // yes, i know, default install location of Oculus, i'm sorry :(
+        const string locationtxt = "C:\\Program Files\\Oculus\\Support\\oculus-dash\\dash\\bin\\location.txt";
+
         public static void Main()
         {
             try
             {
                 string installLocation="";
                 
-                if (File.Exists("location.txt"))
+                if (File.Exists(locationtxt))
                 {
-                    installLocation = File.ReadAllText("location.txt");
+                    installLocation = File.ReadAllText(locationtxt);
                     if (installLocation[installLocation.Length - 1] != '\\')
                     {
                         installLocation += '\\';
