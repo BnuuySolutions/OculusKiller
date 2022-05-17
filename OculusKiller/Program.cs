@@ -12,12 +12,31 @@ namespace OculusKiller
         {
             try
             {
-                RegistryKey steamVrKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 250820");
-                if (steamVrKey != null)
+                string installLocation="";
+                
+                if (File.Exists("location.txt"))
                 {
-                    string installLocation = steamVrKey.GetValue("InstallLocation").ToString();
+                    installLocation = File.ReadAllText("location.txt");
+                    if (installLocation[installLocation.Length - 1] != '\\')
+                    {
+                        installLocation += '\\';
+                    }
+                }
+                else
+                {
+                    RegistryKey steamVrKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 250820");
+                    if (steamVrKey != null)
+                    {
+                        installLocation = steamVrKey.GetValue("InstallLocation").ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Couldn't find SteamVR! (Did you install it and run it once?)");
+                    }
+                }
+                if (installLocation != "")
+                {
                     string vrStartupPath = Path.Combine(installLocation, @"bin\win64\vrstartup.exe");
-
                     if (File.Exists(vrStartupPath))
                     {
                         Process vrStartupProcess = Process.Start(vrStartupPath);
@@ -26,8 +45,6 @@ namespace OculusKiller
                     else
                         MessageBox.Show("Unable to find vrstartup executable within SteamVR installation directory.");
                 }
-                else
-                    MessageBox.Show("Couldn't find SteamVR! (Did you install it and run it once?)");
             }
             catch (Exception e)
             {
