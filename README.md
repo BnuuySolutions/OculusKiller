@@ -1,5 +1,5 @@
 # Oculus Killer
-Completely kill the Oculus Dash and auto-launch SteamVR.
+Completely kill the Oculus Dash and auto-launch SteamVR, with my newest discovery.
 
 [![Discord Shield](https://discordapp.com/api/guilds/972139796354973806/widget.png?style=shield)](https://discord.gg/dPsfJhsGwb)
 
