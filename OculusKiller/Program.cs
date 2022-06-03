@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace OculusKiller
 {
@@ -24,26 +25,35 @@ namespace OculusKiller
                 
                 // Start and find the VR Server, then wait for it to exit!
                 Process.Start(steamVR.startupPath).WaitForExit();
-                Process vrServerProcess = Array.Find(Process.GetProcessesByName("vrserver"), steamVR.IsServer);
-                if (vrServerProcess == null)
-                {
-                    MessageBox.Show("VR Server not found... (Did SteamVR crash?)");
-                    return;
-                }
-                vrServerProcess.WaitForExit();
 
-                // Find the OVR Server (So we can kill it)
-                // No-one would ever use the name "OVRServer_x64" but let's just be safe...
-                Process ovrServerProcess = Array.Find(Process.GetProcessesByName("OVRServer_x64"), oculus.IsServer);
-                if (ovrServerProcess == null)
-                {
-                    MessageBox.Show("Oculus runtime not found...");
-                    return;
-                }
+                long loopStartTime = DateTimeOffset.Now.ToUnixTimeSeconds();
+                while (true) {
+                    // Make sure this doesn't go infinitely... Let's give it, 10 seconds!
+                    if (DateTimeOffset.Now.ToUnixTimeSeconds() - loopStartTime >= 10)
+                    {
+                        MessageBox.Show("SteamVR VR server not found... (Did SteamVR crash?)");
+                        return;
+                    }
 
-                // Kill it in order to stop Link, it doesn't even give the user an error, nice!
-                ovrServerProcess.Kill();
-                ovrServerProcess.WaitForExit();
+                    // Don't give the user an error if the process isn't found, it happens often...
+                    Process vrServerProcess = Array.Find(Process.GetProcessesByName("vrserver"), steamVR.IsServer);
+                    if (vrServerProcess == null) continue;
+                    vrServerProcess.WaitForExit();
+
+                    // Find the OVR Server (So we can kill it)
+                    // No-one would ever use the name "OVRServer_x64" but let's just be safe...
+                    Process ovrServerProcess = Array.Find(Process.GetProcessesByName("OVRServer_x64"), oculus.IsServer);
+                    if (ovrServerProcess == null)
+                    {
+                        MessageBox.Show("Oculus runtime not found...");
+                        return;
+                    }
+
+                    // Kill it in order to stop Link, it doesn't even give the user an error, nice!
+                    ovrServerProcess.Kill();
+                    ovrServerProcess.WaitForExit();
+                    break;
+                }
             }
             catch (Exception e)
             {
