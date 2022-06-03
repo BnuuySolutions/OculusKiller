@@ -14,7 +14,7 @@ namespace OculusKiller
         {
             // We can get Oculus's installation path through the OculusBase environment variable!
             location = Environment.GetEnvironmentVariable("OculusBase");
-            if (string.IsNullOrEmpty(location) || !File.Exists(location))
+            if (string.IsNullOrEmpty(location) || !Directory.Exists(location))
             {
                 MessageBox.Show("Oculus installation environment not found...");
                 return false;
@@ -22,7 +22,7 @@ namespace OculusKiller
 
             // Try to get the path of the Oculus server... This also serves as insurance that Oculus.location is valid!
             serverPath = Path.Combine(location, @"Support\oculus-runtime\OVRServer_x64.exe");
-            if (string.IsNullOrEmpty(serverPath))
+            if (string.IsNullOrEmpty(serverPath) || !File.Exists(serverPath))
             {
                 MessageBox.Show("Oculus server executable not found...");
                 return false;

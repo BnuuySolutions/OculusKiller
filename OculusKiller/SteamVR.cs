@@ -42,7 +42,7 @@ namespace OculusKiller
             }
 
             // Now we just verify that everything exists!
-            if (!File.Exists(location))
+            if (!Directory.Exists(location))
             {
                 MessageBox.Show("SteamVR installation directory does not exist... (Has SteamVR been run once?)");
                 return false;

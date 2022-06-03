@@ -8,10 +8,6 @@ namespace OculusKiller
     {
         static Oculus oculus = new Oculus();
         static SteamVR steamVR = new SteamVR();
-        static dynamic openvrPaths;
-        static string steamVrPath;
-        static string vrStartupPath;
-        static string vrServerPath;
 
         static bool UpdateVars()
         {
@@ -27,7 +23,7 @@ namespace OculusKiller
                 if (!UpdateVars()) return;
                 
                 // Start and find the VR Server, then wait for it to exit!
-                Process.Start(vrStartupPath).WaitForExit();
+                Process.Start(steamVR.startupPath).WaitForExit();
                 Process vrServerProcess = Array.Find(Process.GetProcessesByName("vrserver"), steamVR.IsServer);
                 if (vrServerProcess == null)
                 {
