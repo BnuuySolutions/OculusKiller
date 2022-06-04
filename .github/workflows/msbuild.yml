@@ -3,9 +3,6 @@ name: MSBuild
 on:
   workflow_dispatch:
   push:
-    paths:
-      - "OculusKiller.sln"
-      - "OculusKiller/*"
   pull_request:
 
 env:
@@ -28,7 +25,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v1
 
     - name: Restore NuGet packages
       working-directory: ${{env.GITHUB_WORKSPACE}}
