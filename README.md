@@ -15,7 +15,7 @@ This breaks Oculus based games, as in you might be able to launch Oculus games, 
 - Start Oculus link app
 - Start OculusDashInstaller.exe 
 
-<img src="https://gyazo.com/8e67d4d573836a5d80b0edead6556ce9" width="627" height="444" />
+<img src="https://gyazo.com/8e67d4d573836a5d80b0edead6556ce9](https://i.gyazo.com/8e67d4d573836a5d80b0edead6556ce9.gif" width="627" height="444" />
 
 Enjoy your completely yeeted Oculus Dash with SteamVR auto-start, and the extra performance!
 
