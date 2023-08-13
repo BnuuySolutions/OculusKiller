@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Web.Script.Serialization;
 using System.Linq;
+using System.Threading;
 
 namespace OculusKiller
 {
@@ -24,54 +25,44 @@ namespace OculusKiller
                     if (File.Exists(vrStartupPath))
                     {
                         Process vrStartupProcess = Process.Start(vrStartupPath);
-                        vrStartupProcess.WaitForExit();
 
-                        // At this point, vrstartup.exe should have launched vrmonitor.exe.
-                        // This is the one we actually need to wait for to exit when the user clicks "EXIT VR" in the SteamVR dashboard.
+                        // At this point, vrstartup.exe will launch vrmonitor.exe.
+                        var sw = Stopwatch.StartNew();
                         var vrMonitorProcesses = Process.GetProcessesByName("vrmonitor");
+                        while (vrMonitorProcesses.Length == 0 && !vrStartupProcess.HasExited && sw.Elapsed.Seconds < 10)
+                        {
+                            Thread.Sleep(1000);
+                            vrMonitorProcesses = Process.GetProcessesByName("vrmonitor");
+                        }
+
+                        // This is the one we actually need to wait for to exit when the user clicks "EXIT VR" in the SteamVR dashboard.
                         if (vrMonitorProcesses.Length > 0)
                         {
-                            foreach (var vrMonitorProcess in vrMonitorProcesses)
-                            {
-                                vrMonitorProcess.WaitForExit();
-                            }
-
-                            // Since exiting SteamVR doesn't actually tell the OVRService to disconnect the headset,
-                            // the OVRService will still immediately re-launch if we exit here.
-                            // Even if we return the same exit code as the official OculusDash.exe
-                            // does when the user presses Quit, which is 0xc0000005, it doesn't stop OVRServer from re-launching us.
-
-#if false // Doesn't work without admin privileges.
-                            // The only way we know of to prevent this is to stop the OVRService service or kill the OVRServer process.
-                            var ovrService = new System.ServiceProcess.ServiceController("OVRService");
-                            ovrService.Stop(); 
-                            ovrService.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped);
-                            // Restart it so that it's ready for the next time the user wants to connect their headset.
-                            ovrService.Start();
-#endif
-
-#if false // Thwarted by Oculus Client's "Are you sure you want to quit?" dialog.
-                            // Gracefully stop the OculusClient process.
+                            // While we're waiting for the user to exit VR from the SteamVR dashboard,
+                            // we need to watch for the Oculus client being closed or the service being stopped.
+                            // Otherwise, SteamVR will spin and hang when it gets detached from the service.
                             var oculusClientProcesses = Process.GetProcessesByName("OculusClient");
-                            if (oculusClientProcesses.Length > 0)
+                            while (!vrMonitorProcesses.All(p => p.HasExited))
                             {
-                                foreach (var oculusClientProcess in oculusClientProcesses)
+                                if (oculusClientProcesses.All(p => p.HasExited))
                                 {
-                                    oculusClientProcess.CloseMainWindow();
+                                    //new Thread(() => MessageBox.Show("Oculus service or client has exited before SteamVR.  Exiting SteamVR automatically...")).Start();
+                                    foreach (var process in vrMonitorProcesses)
+                                    {
+                                        process.Kill();
+                                        process.WaitForExit();
+                                    }
                                 }
-                                foreach (var oculusClientProcess in oculusClientProcesses)
-                                {
-                                    oculusClientProcess.WaitForExit();
-                                }
-                            }
-                            else
-                                MessageBox.Show("Could not find OculusClient process.");
-#endif
 
-                            // Last resort: Kill the OVRServer process (might end in _x86 or _x64).
-                            foreach (var ovrServerProcess in Process.GetProcesses().Where(p => p.ProcessName.StartsWith("OVRServer")))
+                                Thread.Sleep(1000);
+                            }
+
+
+                            // VRMonitor has exited, so kill the OVRServer process (which might end in _x86 or _x64) so it doesn't restart us when we exit.
+                            foreach (var process in Process.GetProcesses().Where(p => p.ProcessName.StartsWith("OVRServer")))
                             {
-                                ovrServerProcess.Kill();
+                                process.Kill();
+                                process.WaitForExit();
                             }
 
                             // The OVRServiceLauncher will immediately re-launch OVRServer and the OculusClient window,
