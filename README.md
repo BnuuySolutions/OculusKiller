@@ -25,6 +25,16 @@ Enjoy your completely yeeted Oculus Dash with SteamVR auto-start, and the extra 
 # Common fixes
 Here is a list of common issues and their respective fixes/workarounds!
 
+## How can I stop Oculus updates from wiping Oculus Killer?
+Blocking Oculus updates is extremely easy, as long as you know how to use the registry editor in Windows:
+
+- Open "Registry Editor" (regedit)
+- Go to `HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Oculus VR, LLC\Oculus\Config`
+- Double-click on `CoreChannel` and set it to `NO_UPDATES`
+- Restart OVRServer
+
+Updates should now be blocked, and Oculus Killer should not be wiped anymore every update.
+
 ## Headset Infinitely Loads (SteamVR doesn't launch)
 This issue can occur when you do not have "File name extensions" enabled when renaming OculusDash.exe. To fix this:
 
