@@ -40,4 +40,4 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3
       with:
-        path: 'OculusKiller/bin/x64/Debug'
+        path: 'OculusKiller/bin/x64/Release'
