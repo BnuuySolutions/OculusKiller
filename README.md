@@ -1,3 +1,8 @@
+> [!WARNING]
+> Oculus Killer has been retired, I no longer offer any support for it. I haven't offered official support in nearly 2 years, it is finally time to move on. Thanks to everyone who has supported this project and/or used it. \
+> \
+> Please note that although Oculus Killer is retired now, it should continue to work without my support for many years to come. If you want something like Oculus Killer but still being actively maintained, you should check out [ReLinked VR on my Patreon](https://www.patreon.com/c/whatdahopper).
+
 # Oculus Killer
 Completely kill the Oculus Dash and auto-launch SteamVR, with my newest discovery.
 
