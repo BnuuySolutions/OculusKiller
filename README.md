@@ -1,7 +1,17 @@
 > [!WARNING]
 > Oculus Killer has been retired, I no longer offer any support for it. I haven't offered official support in nearly 2 years, it is finally time to move on. Thanks to everyone who has supported this project and/or used it. \
 > \
-> Please note that although Oculus Killer is retired now, it should continue to work without my support for many years to come. If you want something like Oculus Killer but still being actively maintained, you should check out [ReLinked VR on my Patreon](https://www.patreon.com/c/whatdahopper).
+> Please note that although Oculus Killer is retired now, it should continue to work without my support for many years to come. If you want something like Oculus Killer but still being actively maintained, you should check out [ReLinked VR on my Patreon](https://www.patreon.com/c/whatdahopper). \
+> \
+> **PLEASE NOTE THAT RELINKED VR IS ALPHA-GRADE SOFTWARE AND WILL/MAY HAVE ISSUES, OFTEN REQUIRING RUNTIME UPDATES. OCULUS KILLER ITSELF SHOULD CONTINUE TO WORK WITHOUT MY SUPPORT, IF IT DOESN'T THERE IS ANOTHER METHOD TO ACHIEVE ROUGHLY THE SAME THING AS OCULUS KILLER.**
+
+# READ THIS IF YOU DON'T WANT TO USE OR ARE UNABLE TO USE OCULUS KILLER
+If you do not want to pay for/subscribe to my Patreon to acquire ReLinked VR and do not want to risk it not working and/or Oculus Killer doesn't work or you just don't want to use this piece of software, there is another alternative method to achieving roughly the same thing as Oculus Killer.
+
+Do note that this alternative method will not auto-start SteamVR, you will have to manually start SteamVR yourself:
+1. Open "Registry Editor", go to `HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Oculus VR, LLC\Oculus\Config`.
+2. Inside the view with the keys and values, right click and create a new `DWORD` called `PreventDashLaunch` and set it to `1` (this will prevent dash from starting entirely).
+3. Done! Make sure you restart your Oculus runtime (go into Task Manager, Services, find `OVRService`, right click on it, and click restart).
 
 # Oculus Killer
 Completely kill the Oculus Dash and auto-launch SteamVR, with my newest discovery.
